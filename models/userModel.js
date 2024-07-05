@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt"
 
 const userSchema = mongoose.Schema(
     {
@@ -26,25 +25,21 @@ const userSchema = mongoose.Schema(
         },
         password: {
             type: String,
-            required: [true, 'Password required'],
-            minLength: [5, `Minimum Length of Password is 5 Characters`],
-            validate: {
-                validator: function (value) {
-                    return /[A-Z]/.test(value);
-                },
-                message: 'Password must contain at least one uppercase letter'
-            },
-            set: (plainPass) => bcrypt.hashSync(plainPass, bcrypt.genSaltSync(10))
-    
+            required: [true, 'Password is required'],
         },
-        userType:{
+        userType: {
             type: String,
-            default:"user"
+            default: 'user',
+        },
+        image:{
+            type: String,
+            default: process.env.DEFAULT_USER_IMAGE
         }
     },
     {
         timestamps: true
     }
 )
+
 
 export const User = mongoose.model('User', userSchema)

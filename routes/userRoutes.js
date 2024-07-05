@@ -1,8 +1,14 @@
 import express from 'express'
 import { User } from '../models/userModel.js'
+import { Login, Register, Verify } from '../controller/userController.js'
 
   
 const userRouter = express.Router()
+
+
+userRouter.post('/register', Register);
+userRouter.post('/login', Login);
+userRouter.get('/verify', Verify);
 
 userRouter.post('/add', async (req, res) => {
     try {
